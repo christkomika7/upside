@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+import { auth, getSession } from "@/lib/auth";
 import { TOTAL_PAGINATION_PAGE } from "@/lib/constant";
 import prisma from "@/lib/prisma";
 import { areaSchema, paginationSchema } from "@/lib/schemas";
@@ -7,19 +7,28 @@ import { NextResponse, type NextRequest } from "next/server";
 export async function POST(req: NextRequest) {
     const res = await req.json()
     const validateData = areaSchema.safeParse(res);
+    const a = getSession();
+
 
     const session = await auth.api.getSession({
         headers: req.headers
     })
 
-    if (!session) {
+    const userId = session?.user?.id;
+
+    const user = userId ? await prisma.user.findUnique({
+        where: {
+            id: userId
+        }
+    }) : null;
+
+    if (!session && !user) {
         return NextResponse.json({
             message: "Accès refusé.",
             state: "error",
         }, { status: 401 },
         )
     }
-
     if (!validateData.success) {
         return NextResponse.json({
             message: "Donnée invalide.",

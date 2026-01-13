@@ -12,13 +12,24 @@ import { filtersData } from "@/app/[locale]/(dashboard)/admin/real-state/_compon
 import { Option } from "@/lib/type";
 
 export async function POST(req: NextRequest) {
-  const session = await auth.api.getSession({ headers: req.headers });
+  const session = await auth.api.getSession({
+    headers: req.headers
+  })
 
-  if (!session) {
-    return NextResponse.json(
-      { message: "Accès refusé.", state: "error" },
-      { status: 401 },
-    );
+  const userId = session?.user?.id;
+
+  const user = userId ? await prisma.user.findUnique({
+    where: {
+      id: userId
+    }
+  }) : null;
+
+  if (!session && !user) {
+    return NextResponse.json({
+      message: "Accès refusé.",
+      state: "error",
+    }, { status: 401 },
+    )
   }
 
   const formData = await req.formData();

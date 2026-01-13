@@ -81,18 +81,25 @@ export async function DELETE(
 ) {
   const { id } = await context.params;
 
-  const session = await auth.api.getSession({
-    headers: req.headers,
-  });
 
-  if (!session) {
-    return NextResponse.json(
-      {
-        message: "Accès refusé.",
-        state: "error",
-      },
-      { status: 401 },
-    );
+  const session = await auth.api.getSession({
+    headers: req.headers
+  })
+
+  const userId = session?.user?.id;
+
+  const user = userId ? await prisma.user.findUnique({
+    where: {
+      id: userId
+    }
+  }) : null;
+
+  if (!session && !user) {
+    return NextResponse.json({
+      message: "Accès refusé.",
+      state: "error",
+    }, { status: 401 },
+    )
   }
 
   // Validation de l'ID
@@ -177,16 +184,26 @@ export async function PUT(
   req: NextRequest,
   context: { params: Promise<{ id: string }> },
 ) {
-  const session = await auth.api.getSession({ headers: req.headers });
   const { id } = await context.params;
+  const session = await auth.api.getSession({
+    headers: req.headers
+  })
 
-  if (!session) {
-    return NextResponse.json(
-      { message: "Accès refusé.", state: "error" },
-      { status: 401 },
-    );
+  const userId = session?.user?.id;
+
+  const user = userId ? await prisma.user.findUnique({
+    where: {
+      id: userId
+    }
+  }) : null;
+
+  if (!session && !user) {
+    return NextResponse.json({
+      message: "Accès refusé.",
+      state: "error",
+    }, { status: 401 },
+    )
   }
-
   if (!id || typeof id !== "string") {
     return NextResponse.json(
       {

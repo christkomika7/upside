@@ -13,7 +13,15 @@ export async function PUT(req: NextRequest) {
         headers: req.headers
     })
 
-    if (!session) {
+    const userId = session?.user?.id;
+
+    const user = userId ? await prisma.user.findUnique({
+        where: {
+            id: userId
+        }
+    }) : null;
+
+    if (!session && !user) {
         return NextResponse.json({
             message: "Accès refusé.",
             state: "error",
@@ -77,7 +85,15 @@ export async function DELETE(req: NextRequest) {
         headers: req.headers
     })
 
-    if (!session) {
+    const userId = session?.user?.id;
+
+    const user = userId ? await prisma.user.findUnique({
+        where: {
+            id: userId
+        }
+    }) : null;
+
+    if (!session && !user) {
         return NextResponse.json({
             message: "Accès refusé.",
             state: "error",

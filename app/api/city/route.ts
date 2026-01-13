@@ -12,7 +12,15 @@ export async function POST(req: NextRequest) {
         headers: req.headers
     })
 
-    if (!session) {
+    const userId = session?.user?.id;
+
+    const user = userId ? await prisma.user.findUnique({
+        where: {
+            id: userId
+        }
+    }) : null;
+
+    if (!session && !user) {
         return NextResponse.json({
             message: "Accès refusé.",
             state: "error",
