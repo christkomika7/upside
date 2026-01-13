@@ -4,6 +4,7 @@ import {
   HouseFilterType,
   RealStateCategoriesType,
   RealStateDisponibilityType,
+  RealStateLocationType,
   RealStateType,
   RequestResponse,
 } from "@/lib/type";
@@ -311,6 +312,7 @@ export async function categoriesTotals() {
     if (!response.ok) {
       throw new Error(data.message);
     }
+
     return data;
   } catch (error) {
     throw error;
@@ -344,7 +346,7 @@ export async function locationsTotals() {
         method: "GET",
       },
     );
-    const data: RequestResponse<RealStateCategoriesType> =
+    const data: RequestResponse<RealStateLocationType> =
       await response.json();
     if (!response.ok) {
       throw new Error(data.message);

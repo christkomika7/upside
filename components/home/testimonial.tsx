@@ -11,10 +11,7 @@ import ReviewLoader from "../review-loader";
 
 export default function Testimonial() {
   const t = useScopedI18n("client");
-  const query: UseQueryResult<
-    { reviews: GoogleReviewType[]; totalReviews: number; rating: number },
-    Error
-  > = useQuery({
+  const query = useQuery({
     queryKey: ["reviews"],
     queryFn: reviews,
   });
@@ -40,12 +37,12 @@ export default function Testimonial() {
               <p className="flex xs:flex-row flex-col items-start xs:items-center gap-x-2">
                 <span className="flex items-center gap-x-2">
                   <span className="font-medium text-lg">
-                    <span className="font-extrabold">{query.data.rating}</span>
+                    <span className="font-extrabold">{query.data.data?.rating}</span>
                     /5
                   </span>
                   <span className="flex items-center gap-x-0.5">
                     {Array.from({ length: 5 }).map((_, i) => {
-                      const rating = query.data.rating;
+                      const rating = query.data.data?.rating || 0;
                       const isFullStar = i < Math.floor(rating);
                       const isHalfStar =
                         i === Math.floor(rating) && rating % 1 !== 0;
@@ -69,7 +66,7 @@ export default function Testimonial() {
                 <span className="text-lg">
                   (
                   <span className="font-semibold">
-                    {query.data.totalReviews}
+                    {query.data.data?.totalReviews}
                   </span>{" "}
                   <span className="underline">{t("google.review")}</span>)
                 </span>
@@ -86,12 +83,13 @@ export default function Testimonial() {
               </div>
             </div>
           )}
-          {!query.isLoading && query.data && query.data.reviews.length > 0 && (
-            <TestimonialSlider testimonials={query.data.reviews} />
+          {!query.isLoading && query.data && query.data.data && query.data.data.reviews.length > 0 && (
+            <TestimonialSlider testimonials={query.data.data.reviews} />
           )}
           {!query.isLoading &&
             query.data &&
-            query.data.reviews.length === 0 && (
+            query.data.data &&
+            query.data.data.reviews.length === 0 && (
               <div className="flex flex-col justify-center items-center bg-white/90 backdrop-blur-2xl rounded-[32px] h-[258px]">
                 <MessageSquareQuoteIcon className="text-neutral-500" />
                 <h2 className="mt-0.5 max-w-[400px] text-neutral-600 text-lg text-center">

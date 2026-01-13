@@ -5,13 +5,13 @@ import { useScopedI18n } from "@/locales/client";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { locationsTotals } from "@/actions/realstate";
 import LocationCard from "../card/location-card";
-import { RealStateLocationType } from "@/lib/type";
+import { RealStateLocationType, RequestResponse } from "@/lib/type";
 import LocationsSlider from "../caroussel/locations-slider";
 import { locations } from "@/data";
 
 export default function Location() {
   const t = useScopedI18n("locations");
-  const query: UseQueryResult<{ data: RealStateLocationType }, Error> =
+  const query: UseQueryResult<RequestResponse<RealStateLocationType>, Error> =
     useQuery({
       queryKey: ["locations"],
       queryFn: locationsTotals,
@@ -33,33 +33,33 @@ export default function Location() {
           <div className="gap-4 grid grid-cols-1 lg:grid-cols-2">
             <div className="gap-4 grid grid-cols-2">
               <LocationCard
-                img={query.data?.data.areas[0]?.randomImage ?? ""}
-                title={query.data?.data.areas[0]?.area ?? "???"}
-                value={query.data?.data.areas[0]?._count.area ?? 0}
+                img={query.data?.data?.areas?.[0]?.randomImage ?? ""}
+                title={query.data?.data?.areas?.[0]?.area ?? "???"}
+                value={query.data?.data?.areas?.[0]?._count?.area ?? 0}
                 color="green"
                 isLoading={query.isLoading}
               />
               <LocationCard
-                img={query.data?.data.areas[1]?.randomImage ?? ""}
-                title={query.data?.data.areas[1]?.area ?? "???"}
-                value={query.data?.data.areas[1]?._count.area ?? 0}
+                img={query.data?.data?.areas?.[1]?.randomImage ?? ""}
+                title={query.data?.data?.areas?.[1]?.area ?? "???"}
+                value={query.data?.data?.areas?.[1]?._count?.area ?? 0}
                 color="green"
                 isLoading={query.isLoading}
               />
             </div>
             <div className="gap-4 grid grid-cols-2 lg:grid-cols-1">
               <LocationCard
-                img={query.data?.data.areas[2]?.randomImage ?? ""}
-                title={query.data?.data.areas[2]?.area ?? "???"}
-                value={query.data?.data.areas[2]?._count.area ?? 0}
+                img={query.data?.data?.areas?.[2]?.randomImage ?? ""}
+                title={query.data?.data?.areas?.[2]?.area ?? "???"}
+                value={query.data?.data?.areas?.[2]?._count?.area ?? 0}
                 color="green"
                 isLoading={query.isLoading}
               />
               <div className="lg:hidden block">
                 <LocationCard
-                  img={query.data?.data.areas[3]?.randomImage ?? ""}
-                  title={query.data?.data.areas[3]?.area ?? "???"}
-                  value={query.data?.data.areas[3]?._count.area ?? 0}
+                  img={query.data?.data?.areas?.[3]?.randomImage ?? ""}
+                  title={query.data?.data?.areas?.[3]?.area ?? "???"}
+                  value={query.data?.data?.areas?.[3]?._count?.area ?? 0}
                   color="green"
                   isLoading={query.isLoading}
                 />
@@ -69,15 +69,15 @@ export default function Location() {
           <div className="gap-4 grid grid-cols-1 lg:grid-cols-2">
             <div className="hidden lg:block">
               <LocationCard
-                img={query.data?.data.areas[3]?.randomImage ?? ""}
-                title={query.data?.data.areas[3]?.area ?? "???"}
-                value={query.data?.data.areas[3]?._count.area ?? 0}
+                img={query?.data?.data?.areas?.[3]?.randomImage ?? ""}
+                title={query?.data?.data?.areas?.[3]?.area ?? "???"}
+                value={query?.data?.data?.areas?.[3]?._count?.area ?? 0}
                 color="green"
                 isLoading={query.isLoading}
               />
             </div>
             <FiltersCard
-              datas={query.data?.data.locations ?? []}
+              datas={query.data?.data?.locations ?? []}
               isLoading={query.isLoading}
             />
           </div>
@@ -87,27 +87,27 @@ export default function Location() {
             <LocationsSlider
               datas={[
                 {
-                  img: query.data?.data.areas[0]?.randomImage ?? "",
-                  title: query.data?.data.areas[0]?.area ?? "???",
-                  value: query.data?.data.areas[0]?._count?.area ?? 0,
+                  img: query.data?.data?.areas?.[0]?.randomImage ?? "",
+                  title: query.data?.data?.areas?.[0]?.area ?? "???",
+                  value: query.data?.data?.areas?.[0]?._count?.area ?? 0,
                   url: locations[0].url,
                 },
                 {
-                  img: query.data?.data.areas[1]?.randomImage ?? "",
-                  title: query.data?.data.areas[1]?.area ?? "???",
-                  value: query.data?.data.areas[1]?._count?.area ?? 0,
+                  img: query.data?.data?.areas?.[1]?.randomImage ?? "",
+                  title: query.data?.data?.areas?.[1]?.area ?? "???",
+                  value: query.data?.data?.areas?.[1]?._count?.area ?? 0,
                   url: locations[1].url,
                 },
                 {
-                  img: query.data?.data.areas[2]?.randomImage ?? "",
-                  title: query.data?.data.areas[2]?.area ?? "???",
-                  value: query.data?.data.areas[2]?._count?.area ?? 0,
+                  img: query.data?.data?.areas?.[2]?.randomImage ?? "",
+                  title: query.data?.data?.areas?.[2]?.area ?? "???",
+                  value: query.data?.data?.areas?.[2]?._count?.area ?? 0,
                   url: locations[2].url,
                 },
                 {
-                  img: query.data?.data.areas[3]?.randomImage ?? "",
-                  title: query.data?.data.areas[3]?.area ?? "???",
-                  value: query.data?.data.areas[3]?._count?.area ?? 0,
+                  img: query.data?.data?.areas?.[3]?.randomImage ?? "",
+                  title: query.data?.data?.areas?.[3]?.area ?? "???",
+                  value: query.data?.data?.areas?.[3]?._count?.area ?? 0,
                   url: locations[3].url,
                 },
               ]}
@@ -116,7 +116,7 @@ export default function Location() {
             />
           </div>
           <FiltersCard
-            datas={query.data?.data.locations ?? []}
+            datas={query?.data?.data?.locations ?? []}
             isLoading={query.isLoading}
           />
         </div>

@@ -3,7 +3,7 @@ import { useScopedI18n } from "@/locales/client";
 import PropertyCard from "../card/property-card";
 import PropertiesSlider from "../caroussel/properties-slider";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import { RealStateDisponibilityType } from "@/lib/type";
+import { RealStateDisponibilityType, RequestResponse } from "@/lib/type";
 import { disponibilitiesHouse } from "@/actions/realstate";
 import { Skeleton } from "../ui/skeleton";
 import { HousePropertiesType } from "@/data";
@@ -11,14 +11,14 @@ import { HousePropertiesType } from "@/data";
 export default function Properties() {
   const t = useScopedI18n("properties");
 
-  const query: UseQueryResult<RealStateDisponibilityType, Error> = useQuery({
+  const query: UseQueryResult<RequestResponse<RealStateDisponibilityType>, Error> = useQuery({
     queryKey: ["disponibility"],
     queryFn: disponibilitiesHouse,
   });
 
   const hasData = query.data?.data && Array.isArray(query.data?.data);
-  const firstProperty = hasData ? query.data?.data[0] : null;
-  const secondProperty = hasData ? query.data?.data[1] : null;
+  const firstProperty = hasData ? query.data?.data?.data?.[0] : null;
+  const secondProperty = hasData ? query.data?.data?.data?.[1] : null;
 
   const createPropertyData = (
     property: any

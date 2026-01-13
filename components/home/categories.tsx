@@ -5,12 +5,12 @@ import CategoriesSlider from "../caroussel/categories-slider";
 import { useScopedI18n } from "@/locales/client";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { categoriesTotals } from "@/actions/realstate";
-import { RealStateCategoriesType } from "@/lib/type";
+import { RealStateCategoriesType, RequestResponse } from "@/lib/type";
 
 export default function Categories() {
   const t = useScopedI18n("categories.title");
 
-  const query: UseQueryResult<{ data: RealStateCategoriesType }, Error> =
+  const query: UseQueryResult<RequestResponse<RealStateCategoriesType>, Error> =
     useQuery({
       queryKey: ["categories"],
       queryFn: categoriesTotals,
@@ -31,12 +31,12 @@ export default function Categories() {
               {...category}
               isLoading={query.isLoading}
               values={[
-                query.data?.data.villa ?? 0,
-                query.data?.data.apartment ?? 0,
-                query.data?.data.warehouse ?? 0,
-                query.data?.data.office ?? 0,
-                query.data?.data.land ?? 0,
-                query.data?.data.commercial ?? 0,
+                query.data?.data?.villa ?? 0,
+                query.data?.data?.apartment ?? 0,
+                query.data?.data?.warehouse ?? 0,
+                query.data?.data?.office ?? 0,
+                query.data?.data?.land ?? 0,
+                query.data?.data?.commercial ?? 0,
               ]}
             />
           ))}
@@ -46,12 +46,12 @@ export default function Categories() {
             categories={categories}
             isLoading={query.isLoading}
             values={[
-              query.data?.data.villa ?? 0,
-              query.data?.data.apartment ?? 0,
-              query.data?.data.warehouse ?? 0,
-              query.data?.data.office ?? 0,
-              query.data?.data.land ?? 0,
-              query.data?.data.commercial ?? 0,
+              query.data?.data?.villa ?? 0,
+              query.data?.data?.apartment ?? 0,
+              query.data?.data?.warehouse ?? 0,
+              query.data?.data?.office ?? 0,
+              query.data?.data?.land ?? 0,
+              query.data?.data?.commercial ?? 0,
             ]}
           />
         </div>

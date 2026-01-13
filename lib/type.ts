@@ -468,7 +468,7 @@ export type TablePaginationType = {
 export type RequestResponse<T> = {
   message: string;
   state: "error" | "success";
-  data?: T[] | [];
+  data?: T;
   total?: number;
   totalPages?: number;
   all?: number;
