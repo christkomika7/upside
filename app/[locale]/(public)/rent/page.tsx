@@ -20,7 +20,7 @@ export default function RentPage() {
 
   const { mutate, data } = useQueryAction<
     HouseFilterType,
-    RequestResponse<RealStateType>
+    RequestResponse<RealStateType[]>
   >(
     rent,
     () => {

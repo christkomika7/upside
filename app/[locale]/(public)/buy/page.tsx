@@ -20,7 +20,7 @@ export default function BuyPage() {
 
   const { mutate, data } = useQueryAction<
     HouseFilterType,
-    RequestResponse<RealStateType>
+    RequestResponse<RealStateType[]>
   >(
     buy,
     () => {

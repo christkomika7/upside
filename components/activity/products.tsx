@@ -25,12 +25,12 @@ type ProductsProps = {
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   mutate: UseMutateFunction<
-    RequestResponse<RealStateType>,
+    RequestResponse<RealStateType[]>,
     Error,
     HouseFilterType,
     unknown
   >;
-  data: RequestResponse<RealStateType> | undefined;
+  data: RequestResponse<RealStateType[]> | undefined;
 };
 
 export default function Products({
@@ -138,7 +138,7 @@ export default function Products({
         <div className="flex justify-end sm:justify-between mb-6 sm:mb-8 w-full">
           <MapFilter
             section={category}
-            datas={(data?.data && (data?.data as RealStateType[])) ?? []}
+            datas={(data?.data && (data?.data as unknown as RealStateType[])) ?? []}
           />
           <ShowFilter
             section={category}
@@ -152,8 +152,8 @@ export default function Products({
             {isLoading && <CardLoader />}
             {!isLoading &&
               data?.data &&
-              (data?.data as RealStateType[]).length > 0 &&
-              (data?.data as RealStateType[]).map((house) => (
+              (data?.data).length > 0 &&
+              data?.data?.map((house) => (
                 <ProductCard key={house.id} house={house} />
               ))}
           </div>
