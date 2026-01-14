@@ -17,9 +17,12 @@ import { useState } from "react";
 import { Spinner } from "../ui/spinner";
 import { toast } from "sonner";
 import { env } from "@/env.config";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
   const form = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -50,18 +53,7 @@ export default function LoginForm() {
 
   async function forgetPassword(e: React.SyntheticEvent) {
     e.preventDefault();
-    const { error } = await authClient.forgetPassword({
-      email: env.NEXT_PUBLIC_USER_EMAIL,
-      redirectTo: "/account/admin/password/reset",
-    });
-
-    if (error) {
-      toast.error(
-        "Une erreur s’est produite lors de la réinitialisation de votre mot de passe. Veuillez réessayer plus tard."
-      );
-    } else {
-      toast.success("Email vient d'être envoyé dans votre boite.");
-    }
+    router.push("/account/admin/password/reset")
   }
   return (
     <div className="bg-white shadow shadow-slate-400/30 p-4 rounded-lg w-full max-w-xs">
