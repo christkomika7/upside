@@ -138,7 +138,7 @@ export default function Products({
         <div className="flex justify-end sm:justify-between mb-6 sm:mb-8 w-full">
           <MapFilter
             section={category}
-            datas={(data?.data && (data?.data as unknown as RealStateType[])) ?? []}
+            datas={data?.data ?? []}
           />
           <ShowFilter
             section={category}
