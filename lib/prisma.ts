@@ -6,12 +6,7 @@ const globalForPrisma = global as unknown as {
 }
 
 function createPrismaClient() {
-    const url = process.env.DATABASE_URL
-    if (!url) throw new Error('DATABASE_URL is not defined')
-
-    return new PrismaClient({
-        datasourceUrl: url,
-    }).$extends(withAccelerate())
+    return new PrismaClient().$extends(withAccelerate())
 }
 
 const prisma = globalForPrisma.prisma ?? createPrismaClient()
