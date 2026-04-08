@@ -1,3 +1,4 @@
+import { City } from "@/app/generated/prisma";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { citySchema } from "@/lib/schemas";
@@ -47,8 +48,9 @@ export async function PUT(req: NextRequest) {
     try {
         const datas = await prisma.city.findMany();
 
-        const isExist = datas?.some(d => d.name === data?.city?.toLowerCase());
-
+        const isExist = datas?.some((d: City) =>
+            d.name === data?.city?.toLowerCase()
+        );
         if (isExist) return NextResponse.json({
             message: `${data?.city} existe déjà.`,
             state: "error",
