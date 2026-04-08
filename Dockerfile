@@ -36,5 +36,5 @@ RUN npm install -g bun
 
 COPY --from=builder /app ./
 
-EXPOSE 3000
+EXPOSE 3002
 CMD ["bun", "run", "start"]

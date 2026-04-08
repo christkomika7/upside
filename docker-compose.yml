@@ -7,7 +7,7 @@ services:
     env_file:
       - .env
     expose:
-      - "3000"
+      - "3002"
     networks:
       - app-network
 
