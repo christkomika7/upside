@@ -8,6 +8,8 @@ import { mkdir, unlink, writeFile } from "fs/promises";
 import { NextResponse, type NextRequest } from "next/server";
 import path from "path";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
   const name = formData.get("name");

@@ -3,6 +3,8 @@ import prisma from "@/lib/prisma";
 import { handleBigIntSerialization } from "@/utils/utils";
 import { Realstate } from "@/app/generated/prisma";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest) {
   try {
 

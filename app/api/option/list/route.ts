@@ -2,6 +2,8 @@ import prisma from "@/lib/prisma";
 import { NextResponse, type NextRequest } from "next/server";
 import { Options } from "@/app/generated/prisma";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest) {
     const datas = await prisma.options.findMany();
     const baseUrl = new URL(req.url).origin;

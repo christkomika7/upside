@@ -3,6 +3,8 @@ import prisma from "@/lib/prisma";
 
 type Tx = Parameters<Parameters<typeof prisma.$transaction>[0]>[0];
 
+export const dynamic = "force-dynamic";
+
 export async function GET(_: NextRequest) {
   try {
     const [areas, locations] = await prisma.$transaction(async (tx: Tx) => {

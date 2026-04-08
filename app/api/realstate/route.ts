@@ -12,6 +12,8 @@ import { filtersData } from "@/app/[locale]/(dashboard)/admin/real-state/_compon
 import { Option } from "@/lib/type";
 import { Realstate } from "@/app/generated/prisma";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: NextRequest) {
   const session = await auth.api.getSession({
     headers: req.headers

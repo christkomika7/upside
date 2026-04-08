@@ -12,6 +12,8 @@ import { OptionType } from "@/lib/type";
 import { mapValue } from "@/lib/utils";
 import { Realstate } from "@/app/generated/prisma";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(
   req: NextRequest,
   context: { params: Promise<{ id: string }> },
