@@ -47,8 +47,10 @@ export async function PUT(req: NextRequest) {
     try {
         const datas = await prisma.city.findMany();
 
-        const isExist = datas.some((d: { name: string }) => d.name === data.city.toLowerCase()); if (isExist) return NextResponse.json({
-            message: `${data.city} existe déjà.`,
+        const isExist = datas?.some(d => d.name === data?.city?.toLowerCase());
+
+        if (isExist) return NextResponse.json({
+            message: `${data?.city} existe déjà.`,
             state: "error",
         }, { status: 409 })
 
