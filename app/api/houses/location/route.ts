@@ -1,10 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server";
 import prisma from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+
+type Tx = Parameters<Parameters<typeof prisma.$transaction>[0]>[0];
 
 export async function GET(_: NextRequest) {
   try {
-    const [areas, locations] = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    const [areas, locations] = await prisma.$transaction(async (tx: Tx) => {
       const areasResult = await tx.realstate.groupBy({
         by: ["area"],
         _count: {
