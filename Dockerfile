@@ -1,13 +1,8 @@
 # Stage 1: deps
-FROM oven/bun:1.2-debian AS deps
+FROM node:20-slim AS deps
 WORKDIR /app
 
-# Install Node 20 + npm properly
-RUN apt-get update && \
-    apt-get install -y curl && \
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs && \
-    rm -rf /var/lib/apt/lists/*
+RUN npm install -g bun
 
 COPY package.json bun.lock ./
 COPY prisma ./prisma
@@ -16,8 +11,10 @@ RUN npm install --legacy-peer-deps
 RUN npx prisma generate
 
 # Stage 2: builder
-FROM oven/bun:1.2-debian AS builder
+FROM node:20-slim AS builder
 WORKDIR /app
+
+RUN npm install -g bun
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -25,7 +22,7 @@ COPY . .
 RUN bun run build
 
 # Stage 3: runner
-FROM oven/bun:1.2-debian AS runner
+FROM node:20-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
@@ -34,6 +31,8 @@ RUN apt-get update && \
     libreoffice libreoffice-writer libreoffice-calc libreoffice-impress \
     fonts-dejavu fonts-liberation \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN npm install -g bun
 
 COPY --from=builder /app ./
 
