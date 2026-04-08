@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -10,22 +10,21 @@ datasource db {
 model User {
   id            String    @id
   name          String
-  email         String
+  email         String    @unique
   emailVerified Boolean
   image         String?
   createdAt     DateTime
   updatedAt     DateTime
-  sessions      Session[]
   accounts      Account[]
+  sessions      Session[]
 
-  @@unique([email])
   @@map("user")
 }
 
 model Session {
   id        String   @id
   expiresAt DateTime
-  token     String
+  token     String   @unique
   createdAt DateTime
   updatedAt DateTime
   ipAddress String?
@@ -33,7 +32,6 @@ model Session {
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([token])
   @@map("session")
 }
 
@@ -42,7 +40,6 @@ model Account {
   accountId             String
   providerId            String
   userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   accessToken           String?
   refreshToken          String?
   idToken               String?
@@ -52,6 +49,7 @@ model Account {
   password              String?
   createdAt             DateTime
   updatedAt             DateTime
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("account")
 }
@@ -83,47 +81,65 @@ model Options {
   icon      String?
   name      String      @unique
   translate String?
-  realstate Realstate[]
+  realstate Realstate[] @relation("OptionsToRealstate")
 }
 
 model Realstate {
-  id          String   @id @default(uuid())
-  images      String[]
-  online      Boolean? @default(true)
-  title       String
-  dimension   String?
-  status      String
-  property    String
-  bedroom     Int      @default(0)
-  bathroom    Int      @default(0)
-  room        Int      @default(0)
-  city        String
-  area        String
-  price       BigInt?
-  email       String?
-  phone       String?
-  whatsapp    String?
-  description String
-  translate   String   @default("")
-  position    Float[]
-
-  options         Options[]
+  id              String    @id @default(uuid())
+  images          String[]
+  title           String
+  dimension       String?
+  status          String
+  property        String
+  bedroom         Int       @default(0)
+  bathroom        Int       @default(0)
+  city            String
+  area            String
+  price           BigInt?
+  email           String?
+  phone           String?
+  whatsapp        String?
+  description     String
+  position        Float[]
   furnished       Boolean   @default(false)
   equippedKitchen Boolean   @default(false)
   terrace         Boolean   @default(false)
   security        Boolean   @default(false)
   pmr             Boolean   @default(false)
   elevator        Boolean   @default(false)
+  pool            Boolean   @default(false)
+  internet        Boolean   @default(false)
+  gym             Boolean   @default(false)
+  garden          Boolean   @default(false)
+  generator       Boolean   @default(false)
+  parking         Boolean   @default(false)
+  clim            Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
   view            String?
-
-  pool      Boolean @default(false)
-  internet  Boolean @default(false)
-  gym       Boolean @default(false)
-  garden    Boolean @default(false)
-  generator Boolean @default(false)
-  parking   Boolean @default(false)
-  clim      Boolean @default(false)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  room            Int       @default(0)
+  online          Boolean?  @default(true)
+  translate       String    @default("")
+  options         Options[] @relation("OptionsToRealstate")
 }
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model spatial_ref_sys {
+  srid      Int     @id
+  auth_name String? @db.VarChar(256)
+  auth_srid Int?
+  srtext    String? @db.VarChar(2048)
+  proj4text String? @db.VarChar(2048)
+}
+
+/// We could not retrieve columns for the underlying table. Either it has none or you are missing rights to see them. Please check your privileges.
+// model us_gaz {
+// }
+
+/// We could not retrieve columns for the underlying table. Either it has none or you are missing rights to see them. Please check your privileges.
+// model us_lex {
+// }
+
+/// We could not retrieve columns for the underlying table. Either it has none or you are missing rights to see them. Please check your privileges.
+// model us_rules {
+// }
