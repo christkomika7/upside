@@ -247,7 +247,7 @@ export async function PUT(
   }
 
   const hasImage = isExist.images.filter(
-    (img) => !data.deletedMedias?.includes(img),
+    (img: string) => !data.deletedMedias?.includes(img),
   );
 
   if (hasImage.length === 0 && data.images?.length === 0) {
