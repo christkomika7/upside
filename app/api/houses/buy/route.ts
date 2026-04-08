@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { CLIENT_TOTAL_PAGINATION_PAGE } from "@/lib/constant";
 import prisma from "@/lib/prisma";
 import { handleBigIntSerialization } from "@/utils/utils";
-import { env } from "@/env.config";
+import { Realstate } from "@/app/generated/prisma";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -173,7 +173,7 @@ export async function GET(req: NextRequest) {
 
     const totalPages = Math.ceil(total / pageSize);
 
-    const processedData = properties.map((item) => {
+    const processedData = properties.map((item: Realstate) => {
       const imageUrls = item.images.map((imagePath: string) => {
         return imagePath;
       });
