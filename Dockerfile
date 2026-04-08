@@ -8,7 +8,7 @@ COPY package.json bun.lock ./
 COPY prisma ./prisma
 
 RUN npm install --legacy-peer-deps
-RUN npx prisma generate
+RUN npx prisma generate --output ../app/generated/prisma
 
 # Stage 2: builder
 FROM node:20-slim AS builder
@@ -17,6 +17,7 @@ WORKDIR /app
 RUN npm install -g bun
 
 COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/app/generated ./app/generated
 COPY . .
 
 RUN bun run build
@@ -36,5 +37,5 @@ RUN npm install -g bun
 
 COPY --from=builder /app ./
 
-EXPOSE 3002
+EXPOSE 3000
 CMD ["bun", "run", "start"]
