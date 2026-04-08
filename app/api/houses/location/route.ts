@@ -40,11 +40,11 @@ export async function GET(_: NextRequest) {
             }
           });
 
-          const allImages = propertiesWithImages.flatMap(p => p.images);
+          const allImages = propertiesWithImages.flatMap((p: { images: string[] }) => p.images);
           const randomImage = allImages[Math.floor(Math.random() * allImages.length)] || null
           return {
             ...area,
-            allImages: allImages.filter(r => r !== randomImage),
+            allImages: allImages.filter((r: string) => r !== randomImage),
             randomImage: randomImage
           };
         }));
