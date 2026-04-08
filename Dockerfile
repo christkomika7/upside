@@ -5,7 +5,7 @@ WORKDIR /app
 # Installer Node/npm (nécessaire pour Prisma)
 RUN apt-get update && apt-get install -y npm
 
-COPY package.json bun.lockb ./
+COPY package.json bun.lock ./
 
 # 🔥 Installer avec npm (pas bun)
 RUN npm install
