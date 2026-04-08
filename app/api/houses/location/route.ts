@@ -1,9 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 import prisma from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 
 export async function GET(_: NextRequest) {
   try {
-    const [areas, locations] = await prisma.$transaction(async (tx) => {
+    const [areas, locations] = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const areasResult = await tx.realstate.groupBy({
         by: ["area"],
         _count: {
@@ -21,7 +22,7 @@ export async function GET(_: NextRequest) {
         _max: {
           id: true
         }
-      }).then(async areas => {
+      }).then(async (areas: any[]) => {
         const areasWithImages = await Promise.all(areas.map(async area => {
           const propertiesWithImages = await prisma.realstate.findMany({
             where: {
@@ -61,7 +62,7 @@ export async function GET(_: NextRequest) {
       return [areasResult, locationsResult];
     });
 
-    let area = areas.map(item => ({
+    let area = areas.map((item: { allImages: string | any[]; }) => ({
       ...item,
       randomImage: item.allImages[Math.floor(Math.random() * item.allImages.length)] || null
     }));
