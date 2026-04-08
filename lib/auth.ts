@@ -5,7 +5,7 @@ import { headers } from "next/headers";
 import { customSession, } from "better-auth/plugins";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { sendEmail } from "./email";
-import prisma from "./prisma";
+import { prisma } from "./prisma";
 
 export const auth = betterAuth({
     database: prismaAdapter(prisma, {
