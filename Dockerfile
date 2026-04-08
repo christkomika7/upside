@@ -1,20 +1,22 @@
 # Stage 1: deps
-FROM oven/bun:1.1 AS deps
+FROM oven/bun:1.2-debian AS deps
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y npm && rm -rf /var/lib/apt/lists/*
+# Install Node 20 + npm properly
+RUN apt-get update && \
+    apt-get install -y curl && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY package.json bun.lock ./
 COPY prisma ./prisma
 
-# Fix: bump typescript floor or skip peer checks
 RUN npm install --legacy-peer-deps
-
-# Generate Prisma client
 RUN npx prisma generate
 
 # Stage 2: builder
-FROM oven/bun:1.1 AS builder
+FROM oven/bun:1.2-debian AS builder
 WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
@@ -23,7 +25,7 @@ COPY . .
 RUN bun run build
 
 # Stage 3: runner
-FROM oven/bun:1.1 AS runner
+FROM oven/bun:1.2-debian AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
