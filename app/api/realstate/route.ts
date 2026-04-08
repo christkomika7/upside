@@ -10,6 +10,7 @@ import prisma from "@/lib/prisma";
 import { handleBigIntSerialization } from "@/utils/utils";
 import { filtersData } from "@/app/[locale]/(dashboard)/admin/real-state/_components/data";
 import { Option } from "@/lib/type";
+import { Realstate } from "@/app/generated/prisma";
 
 export async function POST(req: NextRequest) {
   const session = await auth.api.getSession({
@@ -367,7 +368,7 @@ export async function GET(req: NextRequest) {
       }),
     ]);
 
-    const processedData = properties.map((item) => {
+    const processedData = properties.map((item: Realstate) => {
       const imageUrls = item.images.map((imagePath: string) => {
         return imagePath;
       });
