@@ -18,8 +18,8 @@ export default function Categories() {
 
   return (
     <div className="relative bg-(--light)">
-      <div className="-top-[55px] left-0 z-10 absolute bg-(--light) rounded-t-[64px] w-full h-14"></div>
-      <div className="mx-auto px-2 pt-4 pb-44 max-w-[1140px]">
+      <div className="-top-13.75 left-0 z-10 absolute bg-(--light) rounded-t-[64px] w-full h-14"></div>
+      <div className="mx-auto px-2 pt-4 pb-44 max-w-285">
         <h2 className="mb-9 md:mb-12 font-semibold text-(--deep-dark) text-[30px] sm:text-[44px] text-center">
           {t("left")} <span className="text-(--turquoise)">{t("right")}</span>
         </h2>
@@ -41,7 +41,7 @@ export default function Categories() {
             />
           ))}
         </div>
-        <div className="sm:hidden block relative pt-18 h-[450px]">
+        <div className="sm:hidden block relative pt-18 h-112.5">
           <CategoriesSlider
             categories={categories}
             isLoading={query.isLoading}

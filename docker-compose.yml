@@ -1,0 +1,38 @@
+services:
+
+  app:
+    build: .
+    container_name: upside_app
+    restart: always
+    env_file:
+      - .env
+    expose:
+      - "3000"
+    networks:
+      - app-network
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: upside_caddy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+    networks:
+      - app-network
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+
+networks:
+  app-network:
+    driver: bridge

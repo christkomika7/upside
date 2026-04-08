@@ -142,7 +142,7 @@ export type RealStateCategoriesType = {
 };
 
 export type RealStateDisponibilityType = {
-  data: [RealStateType, RealStateType];
+  data: RealStateType[];
 };
 
 export type RealStateLocationType = {

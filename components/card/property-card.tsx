@@ -45,7 +45,7 @@ export default function PropertyCard({
       {!justImage && (
         <div
           className={clsx(
-            "flex-1 rounded-[32px] w-full h-full overflow-hidden",
+            "flex-1 rounded-4xl w-full h-full overflow-hidden",
             !image && "bg-(--turquoise)"
           )}
         >
@@ -72,7 +72,7 @@ export default function PropertyCard({
                 <CustomVideoPlayer autoPlay={false} src={image} />
               )}
               <div className="top-0 absolute flex items-end p-5 w-full h-full pointer-events-none">
-                <div className="bg-(--turquoise) p-4 rounded-[32px] w-full h-fit text-white pointer-events-auto">
+                <div className="bg-(--turquoise) p-4 rounded-4xl w-full h-fit text-white pointer-events-auto">
                   <div
                     className={clsx(
                       "flex items-center gap-x-2 mb-5",
@@ -113,7 +113,7 @@ export default function PropertyCard({
                           <p className="font-medium text-sm">
                             {data?.size ?? "???"}
                           </p>
-                          <hr className="top-0.5 relative bg-neutral-50 w-[1px] h-3" />
+                          <hr className="top-0.5 relative bg-neutral-50 w-px h-3" />
                         </>
                       )}
                       {data?.room && Number(data.room) > 0 ? (
@@ -199,8 +199,8 @@ export default function PropertyCard({
                         {data?.size ?? "???"}
                       </p>
                       {(data.room && Number(data.room) > 0) ||
-                      (data.bath && Number(data.bath) > 0) ||
-                      data.furnished ? (
+                        (data.bath && Number(data.bath) > 0) ||
+                        data.furnished ? (
                         <hr className="top-0.5 relative bg-neutral-50 w-[1px] h-3" />
                       ) : null}
                     </>
@@ -217,7 +217,7 @@ export default function PropertyCard({
                         </span>
                       </p>
                       {data.furnished &&
-                      (data.bath || Number(data.bath) > 0) ? (
+                        (data.bath || Number(data.bath) > 0) ? (
                         <hr className="top-0.5 relative bg-neutral-50 w-[1px] h-3" />
                       ) : null}
                     </>

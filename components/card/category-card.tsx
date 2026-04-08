@@ -69,8 +69,8 @@ export default function CategoryCard({
   }
 
   return (
-    <div className={clsx("overflow-hidden", full ? "h-full" : "h-[254px]")}>
-      <div className="group relative rounded-[32px] w-full h-full">
+    <div className={clsx("overflow-hidden", full ? "h-full" : "h-63.5")}>
+      <div className="group relative rounded-4xl w-full h-full">
         <Image
           src={img}
           alt={title}

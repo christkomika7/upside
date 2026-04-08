@@ -1,6 +1,5 @@
 "use client";
-import { rubik } from "@/font/font";
-import clsx from "clsx";
+
 import { Button } from "../ui/button";
 import { SearchIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
@@ -8,7 +7,6 @@ import PriceFilter from "./price-filter";
 import PropertyFilter from "./property-filter";
 import MoreFilter from "./more-filter";
 import { useScopedI18n } from "@/locales/client";
-import { FilterIdType } from "@/lib/type";
 import {
   createSerializer,
   parseAsBoolean,

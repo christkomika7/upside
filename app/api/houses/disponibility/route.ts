@@ -27,6 +27,11 @@ export async function GET(req: NextRequest) {
     }));
 
 
+    console.log("Fetched Houses:", houseData);
+
+    // pg_restore -h europe-north1-001.proxy.sevalla.app -p 30286 -U generous-lime-moose -d linear-moccasin-asp -W --no-owner upside_backup.dump
+
+
 
     return NextResponse.json(
       {
