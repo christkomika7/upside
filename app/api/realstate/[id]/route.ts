@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { type NextRequest, NextResponse } from "next/server";
 import path from "path";
 import { mkdir, unlink, writeFile } from "fs/promises";
@@ -12,7 +14,6 @@ import { OptionType } from "@/lib/type";
 import { mapValue } from "@/lib/utils";
 import { Realstate } from "@/app/generated/prisma";
 
-export const dynamic = "force-dynamic";
 
 export async function GET(
   req: NextRequest,

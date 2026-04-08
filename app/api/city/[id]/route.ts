@@ -1,10 +1,10 @@
+export const dynamic = "force-dynamic";
 import { City } from "@/app/generated/prisma";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { citySchema } from "@/lib/schemas";
 import { type NextRequest, NextResponse } from "next/server";
 
-export const dynamic = "force-dynamic";
 
 export async function PUT(req: NextRequest) {
     const jsonData = await req.json();
