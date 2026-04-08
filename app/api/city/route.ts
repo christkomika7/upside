@@ -1,8 +1,8 @@
 import { auth } from "@/lib/auth";
 import { TOTAL_PAGINATION_PAGE } from "@/lib/constant";
-import prisma from "@/lib/prisma";
 import { citySchema, paginationSchema } from "@/lib/schemas";
 import { NextResponse, type NextRequest } from "next/server";
+import { prisma } from "@/lib/prisma";
 
 export async function POST(req: NextRequest) {
     const res = await req.json()

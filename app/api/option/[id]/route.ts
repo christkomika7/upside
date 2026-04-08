@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
+
 import { auth } from "@/lib/auth";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { optionSchema } from "@/lib/schemas";
 import { randomUUID } from "crypto";
 import { fileTypeFromBuffer } from "file-type";

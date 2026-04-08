@@ -8,11 +8,11 @@ import { writeFile, mkdir, unlink } from "fs/promises";
 import path from "path";
 import { fileTypeFromBuffer } from "file-type";
 import { mapValue } from "@/lib/utils";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { handleBigIntSerialization } from "@/utils/utils";
 import { filtersData } from "@/app/[locale]/(dashboard)/admin/real-state/_components/data";
 import { Option } from "@/lib/type";
-import { Realstate } from "@/app/generated/prisma";
+import { Realstate } from "@/generated/prisma/client";
 
 
 export async function POST(req: NextRequest) {

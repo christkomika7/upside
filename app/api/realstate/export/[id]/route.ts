@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { handleBigIntSerialization } from "@/utils/utils";
 import { IMAGE_TYPES } from "@/lib/constant";
 

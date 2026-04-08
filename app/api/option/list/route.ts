@@ -1,7 +1,8 @@
 export const dynamic = "force-dynamic";
-import prisma from "@/lib/prisma";
+
+import { prisma } from "@/lib/prisma";
 import { NextResponse, type NextRequest } from "next/server";
-import { Options } from "@/app/generated/prisma";
+import { Options } from "@/generated/prisma/client";
 
 
 export async function GET(req: NextRequest) {

@@ -4,7 +4,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import path from "path";
 import { mkdir, unlink, writeFile } from "fs/promises";
 import { auth } from "@/lib/auth";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { handleBigIntSerialization } from "@/utils/utils";
 import { editRealStateSchema } from "@/lib/schemas";
 import { fileTypeFromBuffer } from "file-type";
@@ -12,7 +12,7 @@ import { ACCEPTED_MEDIA_TYPES } from "@/lib/constant";
 import { randomUUID } from "crypto";
 import { OptionType } from "@/lib/type";
 import { mapValue } from "@/lib/utils";
-import { Realstate } from "@/app/generated/prisma";
+import { Realstate } from "@/generated/prisma/client";
 
 
 export async function GET(

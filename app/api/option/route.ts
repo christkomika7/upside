@@ -1,8 +1,9 @@
 export const dynamic = "force-dynamic";
-import { Options } from "@/app/generated/prisma";
+
+import { Options } from "@/generated/prisma/client";
 import { auth } from "@/lib/auth";
 import { TOTAL_PAGINATION_PAGE } from "@/lib/constant";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { optionSchema, paginationSchema } from "@/lib/schemas";
 import { fileTypeFromBuffer } from "file-type";
 import { mkdir, unlink, writeFile } from "fs/promises";

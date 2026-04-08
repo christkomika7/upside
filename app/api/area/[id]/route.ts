@@ -2,9 +2,9 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 import { auth } from "@/lib/auth";
-import prisma from "@/lib/prisma";
 import { areaSchema } from "@/lib/schemas";
 import { type NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
 
 export async function PUT(req: NextRequest) {
