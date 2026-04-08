@@ -3,6 +3,7 @@ FROM oven/bun:1.1 AS deps
 WORKDIR /app
 COPY package.json bun.lock ./
 RUN bun install
+RUN bunx --bun prisma generate 
 
 # Stage 2 : dev (utilisé par docker compose en local)
 FROM oven/bun:1.1 AS dev

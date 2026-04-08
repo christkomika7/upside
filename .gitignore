@@ -15,7 +15,7 @@
 /app/generated
 
 # file
-# /uploads
+/uploads
 
 # testing
 /coverage
