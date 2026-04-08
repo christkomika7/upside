@@ -334,7 +334,7 @@ export async function PUT(
     const deletedImages = data.deletedMedias ?? [];
     const existingImages = isExist.images;
     const filteredImages = existingImages.filter(
-      (image) => !deletedImages.includes(image),
+      (image: string) => !deletedImages.includes(image),
     );
 
     const realstate = await prisma.realstate.update({
