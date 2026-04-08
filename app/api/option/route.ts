@@ -1,3 +1,4 @@
+import { Options } from "@/app/generated/prisma";
 import { auth } from "@/lib/auth";
 import { TOTAL_PAGINATION_PAGE } from "@/lib/constant";
 import prisma from "@/lib/prisma";
@@ -191,7 +192,7 @@ export async function GET(req: NextRequest) {
       take: pageSize,
     });
 
-    const processedData = datas.map((option) => {
+    const processedData = datas.map((option: Options) => {
       const imageUrl = option.icon
       return {
         ...option,
