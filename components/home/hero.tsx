@@ -8,7 +8,7 @@ export default function Hero() {
     <header className="relative min-h-hero">
       {/* tall:min-h-[900px] */}
       <Image
-        src="/assets/home/home.png"
+        src="/assets/home/_home.png"
         alt="Hero"
         fill
         priority

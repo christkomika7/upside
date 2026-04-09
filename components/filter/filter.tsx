@@ -25,7 +25,7 @@ export default function Filter() {
   return (
     <div
       className={clsx(
-        "bg-neutral-200/20 backdrop-blur-xl px-3 sm:px-6 py-6 rounded-[42px] w-full max-w-4xl h-auto min-h-[178px]",
+        "bg-neutral-200/20 backdrop-blur-sm px-3 sm:px-6 py-6 rounded-[42px] w-full max-w-4xl h-auto min-h-[178px]",
         state > 0 ? "mb-16 sm:mb-20  md:mb-24" : "mb-16"
       )}
     >
